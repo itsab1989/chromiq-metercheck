@@ -40,10 +40,14 @@ Grab the file for your system from the [**Releases**](../../releases) page:
 
 | System | File |
 |---|---|
-| Mac (Apple Silicon) | `ChromIQ-MeterCheck-macOS-arm64` |
-| Mac (Intel) | `ChromIQ-MeterCheck-macOS-x86_64` |
-| Windows | `ChromIQ-MeterCheck-Windows-x86_64.exe` |
-| Linux | `ChromIQ-MeterCheck-Linux-x86_64` |
+| **Mac (any, recommended)** | `ChromIQ-MeterCheck-macOS-universal` |
+| Mac (Apple Silicon only) | `ChromIQ-MeterCheck-macOS-arm64` |
+| Mac (Intel only) | `ChromIQ-MeterCheck-macOS-x86_64` |
+| Windows 64-bit | `ChromIQ-MeterCheck-Windows-x86_64.exe` |
+| Windows 32-bit | `ChromIQ-MeterCheck-Windows-x86.exe` |
+| Windows on ARM | `ChromIQ-MeterCheck-Windows-arm64.exe` |
+| Linux x86-64 | `ChromIQ-MeterCheck-Linux-x86_64` |
+| Linux ARM64 | `ChromIQ-MeterCheck-Linux-arm64` |
 
 Then double-click it (or run it from a terminal) and follow the prompts.
 

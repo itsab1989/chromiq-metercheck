@@ -1,8 +1,9 @@
 name: build
 
 # Builds standalone, no-Python-needed executables of ChromIQ-MeterCheck for
-# macOS (Apple Silicon + Intel), Windows and Linux. On a pushed tag (v*) the
-# binaries are attached to a GitHub Release so users can just download and run.
+# every desktop target: macOS (universal2 + per-arch), Windows (x64 / x86 /
+# arm64) and Linux (x86_64 / arm64). On a pushed tag (v*) the binaries are
+# attached to a GitHub Release so users can just download and run.
 
 on:
   push:
@@ -21,26 +22,42 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-14        # Apple Silicon
+          # ---- macOS -------------------------------------------------------
+          - os: macos-14            # universal2 (Intel + Apple Silicon in one)
+            artifact: ChromIQ-MeterCheck-macOS-universal
+            pyi_extra: "--target-arch universal2"
+          - os: macos-14            # Apple Silicon only
             artifact: ChromIQ-MeterCheck-macOS-arm64
-          - os: macos-13        # Intel
+          - os: macos-13            # Intel only
             artifact: ChromIQ-MeterCheck-macOS-x86_64
+          # ---- Windows -----------------------------------------------------
           - os: windows-latest
             artifact: ChromIQ-MeterCheck-Windows-x86_64
+            py_arch: x64
+          - os: windows-latest
+            artifact: ChromIQ-MeterCheck-Windows-x86
+            py_arch: x86
+          - os: windows-11-arm
+            artifact: ChromIQ-MeterCheck-Windows-arm64
+            py_arch: arm64
+          # ---- Linux -------------------------------------------------------
           - os: ubuntu-latest
             artifact: ChromIQ-MeterCheck-Linux-x86_64
+          - os: ubuntu-24.04-arm
+            artifact: ChromIQ-MeterCheck-Linux-arm64
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          architecture: ${{ matrix.py_arch || '' }}
 
       - name: Install PyInstaller
         run: python -m pip install --upgrade pip pyinstaller
 
       - name: Build standalone executable
-        run: pyinstaller --onefile --console --name ChromIQ-MeterCheck metercheck.py
+        run: pyinstaller --onefile --console ${{ matrix.pyi_extra }} --name ChromIQ-MeterCheck metercheck.py
 
       - name: Rename for platform (Unix)
         if: runner.os != 'Windows'
