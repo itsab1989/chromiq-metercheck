@@ -81,6 +81,25 @@ import sys
 import zipfile
 from pathlib import Path
 
+# Step-by-step for measuring the SAME spot in X-Rite's i1Profiler, so the two
+# tools can be compared. Wording follows i1Profiler's own Color Picker help.
+I1PROFILER_STEPS = (
+    "HOW TO MEASURE THE SAME SPOT IN i1Profiler (X-Rite's own software)\n"
+    "-----------------------------------------------------------------\n"
+    "  1. Open i1Profiler. On the Home screen, click the 'Color Picker' tile.\n"
+    "  2. Connect your i1Pro3. Watch the 'Device Status' indicator - when it\n"
+    "     asks, put the device on its white tile to calibrate, and wait until\n"
+    "     it shows ready.\n"
+    "  3. Put the device on the EXACT SAME spot you measured here, and press\n"
+    "     its button to measure. The reading appears in the 'Color List'.\n"
+    "  4. Click that reading in the Color List. The 'Color Preview' panel then\n"
+    "     shows its Lab values (L*, a*, b*). Write those three numbers down.\n"
+    "  5. (Optional) Select the reading and click 'Export Colors to ASE' to\n"
+    "     save it as a file you can attach instead of typing the numbers.\n"
+    "  6. Note: i1Profiler measures in M0 by default - that matches the 'M0'\n"
+    "     reading this tool took, which is the main one to compare.\n"
+)
+
 # Common places ArgyllCMS gets installed, per OS.
 _CANDIDATE_DIRS = [
     "/Applications/Argyll/bin",
@@ -152,8 +171,9 @@ def welcome() -> None:
         "    and press a key to measure. That's it.\n"
         "  - At the end you get ONE .zip file to attach to the forum thread.\n\n"
         "AFTERWARDS (important - please don't skip):\n"
-        "  - Measure the SAME spot in i1Profiler and export it, and attach\n"
-        "    that too. The comparison is the whole point.\n"
+        "  - Measure the SAME spot in i1Profiler too. The comparison between\n"
+        "    the two tools is the whole point. Exact steps are shown at the\n"
+        "    end, and saved in the bundle - don't worry, it's easy.\n"
     )
     pause("Press ENTER to begin (or Ctrl-C to quit)... ")
 
@@ -321,12 +341,12 @@ def make_readme(outdir: Path) -> None:
         "  system_info.txt              OS, CPU, ArgyllCMS version\n"
         "  version_raw.txt              full spotread version/usage dump\n\n"
         "PLEASE ALSO ATTACH -- THIS IS THE IMPORTANT BIT:\n"
-        "  * the SAME reference spot measured & exported from i1Profiler, so the\n"
-        "    Argyll spectra above can be diffed against it. Without this, the\n"
-        "    headline comparison can't be done.\n"
+        "  * the SAME reference spot measured in i1Profiler (Lab values or an\n"
+        "    ASE export). Without it, the comparison can't be done. Steps below.\n"
         "  * a note of what the reference surface was (tile / grey patch / paper)\n"
         "  * whether your bad profiles failed a SELF-check (re-measure your own\n"
-        "    chart) or only an EXTERNAL check (vs another instrument / by eye)\n"
+        "    chart) or only an EXTERNAL check (vs another instrument / by eye)\n\n"
+        + I1PROFILER_STEPS
     )
 
 
@@ -364,14 +384,14 @@ def main() -> None:
         "  ALL DONE - thank you!\n"
         + "=" * 70 + "\n\n"
         f"Your results are here:\n    {out_target}\n\n"
-        "NEXT, PLEASE (this is what makes the data useful):\n"
-        "  1. Open i1Profiler and measure the SAME spot you just measured.\n"
-        "  2. Export that measurement and keep the file.\n"
-        "  3. On the forum thread, attach BOTH:\n"
-        "       - the file above, and\n"
-        "       - your i1Profiler export.\n"
-        "     And mention: your paper type, and whether your bad profiles\n"
-        "     failed a self-check or only looked wrong on real prints.\n"
+        "NOW THE IMPORTANT HALF - measure the same spot in i1Profiler:\n\n"
+        + I1PROFILER_STEPS +
+        "\nFINALLY, on the forum thread attach BOTH:\n"
+        "  - the results file above, and\n"
+        "  - your i1Profiler Lab values (or the ASE file).\n"
+        "And mention your paper type, and whether your bad profiles failed a\n"
+        "self-check (re-measuring your own chart) or only looked wrong on\n"
+        "real prints.\n"
     )
 
 

@@ -73,9 +73,23 @@ python3 metercheck.py --argyll "/Applications/Argyll/bin"
 
 ## Afterwards — please don't skip
 
-Measure the **same spot** in **i1Profiler**, export it, and share **both** the
-`.zip` and your i1Profiler export. The comparison between the two is the whole
-point. Also mention your **paper type** and whether your bad profiles failed a
+Now measure the **same spot** in **i1Profiler** (X-Rite's own software), so the
+two tools can be compared. It's quick:
+
+1. Open i1Profiler. On the Home screen, click the **Color Picker** tile.
+2. Connect your i1Pro3. Watch the **Device Status** indicator — when it asks,
+   put the device on its white tile to calibrate, and wait until it shows ready.
+3. Put the device on the **exact same spot** you measured with the tool, and
+   press its button to measure. The reading appears in the **Color List**.
+4. Click that reading in the Color List. The **Color Preview** panel shows its
+   **Lab** values (L\*, a\*, b\*). Write those three numbers down.
+5. *(Optional)* Select the reading and click **Export Colors to ASE** to save it
+   as a file you can attach instead of typing the numbers.
+6. i1Profiler measures in **M0** by default — that matches the tool's **M0**
+   reading, which is the main one to compare.
+
+Then share **both** the tool's `.zip` **and** your i1Profiler Lab values (or ASE
+file). Also mention your **paper type** and whether your bad profiles failed a
 **self-check** (re-measuring your own chart) or only looked wrong on real prints.
 
 ## Privacy
