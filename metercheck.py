@@ -96,8 +96,9 @@ I1PROFILER_STEPS = (
     "     shows its Lab values (L*, a*, b*). Write those three numbers down.\n"
     "  5. (Optional) Select the reading and click 'Export Colors to ASE' to\n"
     "     save it as a file you can attach instead of typing the numbers.\n"
-    "  6. Note: i1Profiler measures in M0 by default - that matches the 'M0'\n"
-    "     reading this tool took, which is the main one to compare.\n"
+    "  6. You don't need to change any settings in i1Profiler - just measure\n"
+    "     with whatever it's set to by default. We'll line it up with the\n"
+    "     matching reading from this tool.\n"
 )
 
 # Common places ArgyllCMS gets installed, per OS.
@@ -260,17 +261,17 @@ def step_calibration_dump(outdir: Path, spotread: str) -> None:
 def step_measure_conditions(outdir: Path, spotread: str) -> None:
     """Measure the reference surface in M0, M1, M2 and save each spectrum."""
     print("\n" + "=" * 70)
-    print("STEP 1 of 2  [HEADLINE] - Measure your reference surface in M0/M1/M2")
+    print("STEP 1 of 2 - Measure your reference surface (3 quick readings)")
     print("=" * 70)
-    print("This is the measurement we most want to compare against i1Profiler.")
-    print("You'll be asked to calibrate and measure THREE times (one per")
-    print("measurement condition). Measure the SAME physical spot each time,")
-    print("and -- importantly -- measure that same spot in i1Profiler too and")
-    print("export it, so we can compare.")
+    print("The tool measures the SAME spot three times, using the three standard")
+    print("lighting settings every spectrophotometer supports (they're named")
+    print("M0, M1 and M2). You don't need to know what they mean - just measure")
+    print("the same spot each time when asked. This is the measurement we'll")
+    print("compare against i1Profiler.")
 
     conditions = [("M0", "n"), ("M1", "5"), ("M2", "u")]
     for i, (label, filt) in enumerate(conditions, 1):
-        print(f"\n--- Reading {i} of 3: condition {label} ---")
+        print(f"\n--- Reading {i} of 3  (standard setting '{label}') ---")
         print("    1) Put the device on its WHITE TILE, press a key to calibrate.")
         print("    2) Put it on YOUR reference spot, press a key to measure.")
         pause()

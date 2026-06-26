@@ -85,8 +85,9 @@ two tools can be compared. It's quick:
    **Lab** values (L\*, a\*, b\*). Write those three numbers down.
 5. *(Optional)* Select the reading and click **Export Colors to ASE** to save it
    as a file you can attach instead of typing the numbers.
-6. i1Profiler measures in **M0** by default — that matches the tool's **M0**
-   reading, which is the main one to compare.
+6. You don't need to change any settings in i1Profiler — just measure with
+   whatever it's set to by default. We line it up with the matching reading
+   from the tool.
 
 Then share **both** the tool's `.zip` **and** your i1Profiler Lab values (or ASE
 file). Also mention your **paper type** and whether your bad profiles failed a
