@@ -40,22 +40,24 @@ Grab the file for your system from the [**Releases**](../../releases) page:
 
 | System | File |
 |---|---|
-| **Mac (any, recommended)** | `ChromIQ-MeterCheck-macOS-universal` |
-| Mac (Apple Silicon only) | `ChromIQ-MeterCheck-macOS-arm64` |
-| Mac (Intel only) | `ChromIQ-MeterCheck-macOS-x86_64` |
+| **Mac (any, recommended)** | `ChromIQ-MeterCheck-macOS-universal.zip` |
+| Mac (Apple Silicon only) | `ChromIQ-MeterCheck-macOS-arm64.zip` |
 | Windows 64-bit | `ChromIQ-MeterCheck-Windows-x86_64.exe` |
 | Windows 32-bit | `ChromIQ-MeterCheck-Windows-x86.exe` |
 | Windows on ARM | `ChromIQ-MeterCheck-Windows-arm64.exe` |
 | Linux x86-64 | `ChromIQ-MeterCheck-Linux-x86_64` |
 | Linux ARM64 | `ChromIQ-MeterCheck-Linux-arm64` |
 
-Then double-click it (or run it from a terminal) and follow the prompts.
+**macOS:** download the `.zip`, double-click to unzip, open the
+`ChromIQ-MeterCheck` folder, and double-click **`Double-click to run.command`**.
+The first time, macOS may block it (unsigned): right-click that file → **Open** →
+**Open**. After that it just runs. (The launcher handles permissions for you, so
+you never need Terminal.)
 
-- **macOS:** the first time, right-click the file → **Open** (it's unsigned, so a
-  normal double-click may be blocked by Gatekeeper). You may also need to make it
-  executable: `chmod +x ChromIQ-MeterCheck-macOS-arm64`.
-- **Windows:** SmartScreen may warn about an unknown publisher → *More info* →
-  *Run anyway*.
+**Windows:** double-click the `.exe`. SmartScreen may warn about an unknown
+publisher → *More info* → *Run anyway*.
+
+**Linux:** `chmod +x ChromIQ-MeterCheck-Linux-x86_64 && ./ChromIQ-MeterCheck-Linux-x86_64`.
 
 ### Alternative: run the script directly (needs Python 3.7+)
 

@@ -28,8 +28,7 @@ jobs:
             pyi_extra: "--target-arch universal2"
           - os: macos-14            # Apple Silicon only
             artifact: ChromIQ-MeterCheck-macOS-arm64
-          - os: macos-13            # Intel only
-            artifact: ChromIQ-MeterCheck-macOS-x86_64
+          # (Intel Macs are covered by the universal2 build above.)
           # ---- Windows -----------------------------------------------------
           - os: windows-latest
             artifact: ChromIQ-MeterCheck-Windows-x86_64
@@ -66,6 +65,38 @@ jobs:
       - name: Rename for platform (Windows)
         if: runner.os == 'Windows'
         run: ren dist\ChromIQ-MeterCheck.exe ${{ matrix.artifact }}.exe
+
+      # On macOS a bare CLI binary loses its +x bit on download and has no
+      # extension, so Finder opens it in TextEdit. We instead ship a .zip
+      # containing a double-clickable .command launcher that clears the
+      # quarantine flag, sets +x, and runs the program in Terminal.
+      - name: Package for macOS (zip + launcher)
+        if: runner.os == 'macOS'
+        run: |
+          BIN="${{ matrix.artifact }}"
+          STAGE="stage/ChromIQ-MeterCheck"
+          mkdir -p "$STAGE"
+          mv "dist/$BIN" "$STAGE/$BIN"
+          chmod +x "$STAGE/$BIN"
+          cat > "$STAGE/Double-click to run.command" <<LAUNCH
+          #!/bin/bash
+          cd "\$(dirname "\$0")"
+          xattr -dr com.apple.quarantine "./$BIN" 2>/dev/null
+          chmod +x "./$BIN"
+          "./$BIN"
+          echo
+          echo "Finished - you can close this window."
+          LAUNCH
+          chmod +x "$STAGE/Double-click to run.command"
+          printf '%s\n' \
+            "How to run on macOS:" \
+            "1. Double-click 'Double-click to run.command'." \
+            "2. The first time, macOS may block it: right-click that file ->" \
+            "   Open -> Open. After that it just runs." \
+            > "$STAGE/READ ME.txt"
+          rm -rf dist
+          mkdir -p dist
+          (cd stage && zip -r -X "../dist/$BIN.zip" "ChromIQ-MeterCheck")
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
